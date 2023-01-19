@@ -7,16 +7,18 @@ const { Readable, Writable, pipeline } = require("stream");
 const { promisify } = require("util");
 const { split } = require("event-stream");
 
+const EVENTS_DIR = "PUT_DIR_HERE";
+
 const main = () => {
   const files = fs
-    .readdirSync("./20221129")
+    .readdirSync(EVENTS_DIR)
     .filter((file) => path.extname(file) === ".json");
 
   const results = [];
 
   for (const file of files) {
     const jsonsInFile = fs
-      .readFileSync(path.join("./20221129", file))
+      .readFileSync(path.join(EVENTS_DIR, file))
       .toString()
       .split("\n")
       .filter((line) => line.trim() !== "");
